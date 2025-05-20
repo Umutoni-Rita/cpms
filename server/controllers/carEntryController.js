@@ -1,8 +1,8 @@
-// controllers/carEntryController.js
-import prisma from "../prisma/client.js";
-import { getUserFromToken } from "../utils/auth.js"; // create this utility
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const { getUserFromToken } = ("../middleware/auth.js");
 
-export const registerCarEntry = async (req, res) => {
+const registerCarEntry = async (req, res) => {
   try {
     const user = getUserFromToken(req);
     if (user.role !== "ATTENDANT") return res.status(403).json({ message: "Unauthorized" });
@@ -35,7 +35,7 @@ export const registerCarEntry = async (req, res) => {
   }
 };
 
-export const exitCar = async (req, res) => {
+const exitCar = async (req, res) => {
   try {
     const user = getUserFromToken(req);
     if (user.role !== "ATTENDANT") return res.status(403).json({ message: "Unauthorized" });
@@ -73,3 +73,5 @@ export const exitCar = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+module.exports = {exitCar, registerCarEntry}

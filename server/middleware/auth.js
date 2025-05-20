@@ -53,4 +53,22 @@ const restrictTo = (...roles) => {
   };
 };
 
-module.exports = { protect, restrictTo };
+
+const getUserFromToken = (req) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw new Error("Missing or invalid Authorization header");
+  }
+
+  const token = authHeader.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (!decoded.id || !decoded.role) {
+    throw new Error("Invalid token payload");
+  }
+
+  return decoded;
+};
+
+module.exports = { protect, restrictTo, getUserFromToken };

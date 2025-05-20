@@ -1,10 +1,9 @@
-import express from 'express';
-import { registerCarEntry, exitCar } from '../controllers/carEntryController.js';
-import { authenticate } from '../middlewares/auth.js'; // your JWT middleware
-
+const express = require('express');
+const { registerCarEntry, exitCar } = require('../controllers/carEntryController.js');
+const {protect} = require('../middleware/auth.js')
 const router = express.Router();
 
-router.post('/', authenticate, registerCarEntry);
-router.patch('/exit', authenticate, exitCar);
+router.post('/', protect, registerCarEntry);
+router.patch('/exit', protect, exitCar);
 
-export default router;
+module.exports = router;
