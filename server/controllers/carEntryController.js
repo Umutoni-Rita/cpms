@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { getUserFromToken } = ("../middleware/auth.js");
+const getUserFromToken = ("../middleware/auth.js");
 
 const registerCarEntry = async (req, res) => {
   try {
