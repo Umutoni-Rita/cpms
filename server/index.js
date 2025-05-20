@@ -3,6 +3,8 @@ const cors = require("cors");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 const authRoutes = require("./routes/authRoutes");
+const carEntryRoutes = require("./routes/carEntryRoutes");
+const parkingRoutes = require("./routes/parkingRoutes");
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -12,8 +14,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to VMS");
 });
 app.use("/api/auth", authRoutes);
-// app.use("/api/user", userRoutes);
-// app.use("/api/vehicle", vehicleRoutes);
+app.use("/api/entries", carEntryRoutes);
+app.use("/api/parking", parkingRoutes);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
