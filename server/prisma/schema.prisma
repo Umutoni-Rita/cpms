@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  ATTENDANT
+}
+
+model User{
+    id Int @id @default(autoincrement())
+    first_name String 
+    last_name String
+    email String @unique
+    role Role @default(USER)
+    password String
+    logs  Log[]
+    @@map("users")
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  user_id    Int
+  action    String
+  details   Json?
+  user      User     @relation(fields: [user_id], references: [id])
+  created_at DateTime @default(now())
+  @@map("logs")
+}
+
+model Parking {
+  id          Int           @id @default(autoincrement())
+  code  String        @unique
+  name  String        
+  location  String        
+  spaces        Int
+  fee Float
+  is_available Boolean @default(true)
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  @@map("parking")
+}
+model CarEntry {
+    id Int @id @default(autoincrement())
+    plateNumber String
+    parkingCode String 
+    entry_time DateTime 
+    exit_time DateTime?
+    charge_amount Float @default(0)
+    ticket_id Int @unique
+    @@map("car_entries")
+}
+
+
