@@ -104,7 +104,7 @@ const ParkingList = ({ isAdmin }) => {
                 name="code"
                 value={formData.code}
                 onChange={handleChange}
-                placeholder="e.g. PKG001"
+                placeholder="e.g. RW003 "
                 required
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
               />
