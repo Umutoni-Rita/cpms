@@ -82,68 +82,116 @@ const ParkingList = ({ isAdmin }) => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4 text-[#1A6A6E]">Parking Spaces</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-[#1A6A6E]">
+        Parking Spaces
+      </h1>
 
       {isAdmin && (
-        <form onSubmit={handleSubmit} className="mb-6 space-y-2 bg-gray-50 p-4 rounded shadow">
-          <h2 className="text-xl font-semibold">{editingId ? "Edit Parking" : "Add Parking"}</h2>
-          <input
-            name="code"
-            value={formData.code}
-            onChange={handleChange}
-            placeholder="Code"
-            required
-            className="input-field"
-          />
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-            className="input-field"
-          />
-          <input
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            required
-            className="input-field"
-          />
-          <input
-            name="spaces"
-            type="number"
-            value={formData.spaces}
-            onChange={handleChange}
-            placeholder="Spaces"
-            required
-            className="input-field"
-          />
-          <input
-            name="fee"
-            type="number"
-            value={formData.fee}
-            onChange={handleChange}
-            placeholder="Fee per hour (RWF)"
-            required
-            className="input-field"
-          />
-          <button type="submit" className="bg-[#1A6A6E] text-white px-4 py-2 rounded">
-            {editingId ? "Update" : "Add"}
-          </button>
-          {editingId && (
+        <form
+          onSubmit={handleSubmit}
+          className="mb-6 bg-white p-6 rounded-lg shadow-lg"
+        >
+          <h2 className="text-xl font-semibold text-[#1A6A6E] mb-4">
+            {editingId ? "Edit Parking" : "Add Parking"}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Code
+              </label>
+              <input
+                name="code"
+                value={formData.code}
+                onChange={handleChange}
+                placeholder="e.g. PKG001"
+                required
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Parking Name"
+                required
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Location
+              </label>
+              <input
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="e.g. Downtown"
+                required
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Spaces
+              </label>
+              <input
+                name="spaces"
+                type="number"
+                value={formData.spaces}
+                onChange={handleChange}
+                placeholder="e.g. 50"
+                required
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Fee per hour (RWF)
+              </label>
+              <input
+                name="fee"
+                type="number"
+                value={formData.fee}
+                onChange={handleChange}
+                placeholder="e.g. 500"
+                required
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1A6A6E]"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 mt-6">
             <button
-              type="button"
-              onClick={() => {
-                setEditingId(null);
-                setFormData({ code: "", name: "", location: "", spaces: "", fee: "" });
-              }}
-              className="ml-2 text-red-600"
+              type="submit"
+              className="bg-[#1A6A6E] hover:bg-[#155d61] text-white px-6 py-2 rounded shadow"
             >
-              Cancel
+              {editingId ? "Update Parking" : "Add Parking"}
             </button>
-          )}
+
+            {editingId && (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingId(null);
+                  setFormData({
+                    code: "",
+                    name: "",
+                    location: "",
+                    spaces: "",
+                    fee: "",
+                  });
+                }}
+                className="text-red-600 hover:text-red-800"
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </form>
       )}
 
@@ -171,10 +219,16 @@ const ParkingList = ({ isAdmin }) => {
                 <td className="px-4 py-2">{p.fee} RWF</td>
                 {isAdmin && (
                   <td className="px-4 py-2 space-x-2">
-                    <button onClick={() => handleEdit(p)} className="text-blue-600 hover:underline">
+                    <button
+                      onClick={() => handleEdit(p)}
+                      className="text-blue-600 hover:underline"
+                    >
                       Edit
                     </button>
-                    <button onClick={() => handleDelete(p.id)} className="text-red-600 hover:underline">
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="text-red-600 hover:underline"
+                    >
                       Delete
                     </button>
                   </td>
